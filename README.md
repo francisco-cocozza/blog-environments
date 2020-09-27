@@ -5,7 +5,7 @@ This repo follows the App of Apps pattern:
 [https://argoproj.github.io/argo-cd/operator-manual/cluster-bootstrapping/#app-of-apps-pattern](https://argoproj.github.io/argo-cd/operator-manual/cluster-bootstrapping/#app-of-apps-pattern)
 
 It proposes this structure per environment:
-```yaml
+```
 ├── Chart.yaml
 ├── templates
 │   ├── app-1.yaml
@@ -29,7 +29,7 @@ This repo implements the second strategy.
 The repo will 
 
 In general:
-```yaml
+```
 ├── env-1
 │   ├── Chart.yaml
 │   ├── templates
@@ -47,7 +47,7 @@ In general:
 
 For this case in specific:
 
-```yaml
+```
 ├── production
 │   ├── Chart.yaml
 │   ├── templates
@@ -83,6 +83,20 @@ For example, to a new app called `my-new-app`:
 my-new-app:
   attibute1: value1
 ...
+```
+
+## How to add an environment (`<env>`)
+Create a new directory at the root, with the name of the environment (e.g.: `staging`) and follow the same structure of files:
+```
+my-new-env
+├── argocd-app-of-apps.yaml
+├── argocd-project.yaml
+└── helm
+    ├── Chart.yaml
+    ├── templates
+    │   ├── app-x.yaml
+    │   └── app-y.yaml
+    └── values.yaml
 ```
 
 ## How to remove the objects created
