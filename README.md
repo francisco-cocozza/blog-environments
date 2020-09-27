@@ -77,6 +77,14 @@ Create a new ArgoCD app manifest in `/<env>/templates/`. To override the values 
   <values-here>
 ```
 
+For example, to a new app called `my-new-app`:
+```yaml
+...
+my-new-app:
+  attibute1: value1
+...
+```
+
 ## How to remove the objects created
 For each environment `<env>`
 1. Delete the App of Apps (the main ArgoCD app) for `<env>`. Since the ArgoCD app and the apps inside it have `prune` enabled. 

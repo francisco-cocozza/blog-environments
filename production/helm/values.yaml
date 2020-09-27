@@ -6,3 +6,12 @@ simple-webapp:
     limits:
       cpu: 200m
       memory: 256Mi
+
+easy-webapp:
+  replicaCount: 2
+  image:
+    tag: 0.1.0
+  resources: 
+    limits:
+      cpu: 100m
+      memory: 128Mi
