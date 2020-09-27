@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: simple-webapp
+  name: simple-webapp-{{ include "helm.name" . }}
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
