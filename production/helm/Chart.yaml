@@ -1,0 +1,4 @@
+apiVersion: v2
+name: applications
+description: Production environment
+version: 0.1.0
