@@ -1,0 +1,7 @@
+apiVersion: v2
+name: simple-webapp-proxy
+
+dependencies:
+- name: simple-webapp
+  version: "0.1.0"
+  repository: "https://francisco-codefresh.github.io/charts"

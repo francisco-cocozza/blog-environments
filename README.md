@@ -1,23 +1,24 @@
 # blog-environments
 Repository declaratively defining the state of the environments
 
-This repo follows the App of Apps pattern:
-[https://argoproj.github.io/argo-cd/operator-manual/cluster-bootstrapping/#app-of-apps-pattern](https://argoproj.github.io/argo-cd/operator-manual/cluster-bootstrapping/#app-of-apps-pattern)
+This repo follows the Helm Dependency Patter
+[https://github.com/argoproj/argocd-example-apps/tree/master/helm-dependency](https://github.com/argoproj/argocd-example-apps/tree/master/helm-dependency)
 
-It proposes this structure per environment:
+It proposes this structure **per environment**:
 ```
-├── Chart.yaml
-├── templates
-│   ├── app-1.yaml
-│   ├── app-2.yaml
-│   ├── ...
-│   └── app-N.yaml
-└── values.yaml
+├── app-1
+│   ├── Chart.yaml
+│   └── values.yaml
+├── app-2
+│   └── ...
+├── ...
+└── app-N
+    └── ...
 ```
 
-Each environment will have an "App of Apps", the main app. 
-That Argo CD app will point to the Helm Chart defined for each environment.
-This Helm chart will include inside its `templates` directory a set of ArgoCD application manifests. Each of them represents an app deployed in the corresponding environment.
+Each environment will N directories, each directory represents an app in that environment
+Inside each *"App directory"*, there will be a Helm Chart. It will be just *proxy-chart* pointing to the real Helm Chart to deploy. This levarages the dependency resolution capabilities of Helm.
+The `values.yaml` file will have the values to apply for that instance of the app in specific
 
 There is no specific approach to define multiple environments, following that structure.
 Some possible options could be:
@@ -31,18 +32,19 @@ The repo will
 In general:
 ```
 ├── env-1
-│   ├── Chart.yaml
-│   ├── templates
-│   │   ├── app-1.yaml
-│   │   ├── app-2.yaml
-│   │   ├── ...
-│   │   └── app-N.yaml
-│   └── values.yaml
+|   ├── app-1
+|   │   ├── Chart.yaml
+|   │   └── values.yaml
+|   ├── app-2
+|   │   └── ...
+|   ├── ...
+|   └── app-N
+|       └── ...
 ├── env-2
 │   └── ...
 ├── ...
 └── env-N
-  └── ...
+    └── ...
 ```
 
 For this case in specific:
@@ -63,12 +65,7 @@ For this case in specific:
 ```
 
 ## How to start
-For each environment `<env>`
-```shell
-cd <env>
-kubectl apply -n argocd -f argocd-project.yaml
-kubectl apply -n argocd -f argocd-app-of-apps.yaml
-```
+For each environment `<env>` create a new dir and Create the proxy-chart with the values to apply
 
 ## How to add an app
 Create a new ArgoCD app manifest in `/<env>/templates/`. To override the values used for the App Helm Chart, add them to `/<env>/templates/values.yaml`. In this way:

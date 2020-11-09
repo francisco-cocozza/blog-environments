@@ -1,0 +1,6 @@
+simple-webapp:
+  image:
+    tag: "0.1.0"
+  resources:
+    limits:
+      cpu: 200m

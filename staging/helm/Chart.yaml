@@ -1,4 +1,0 @@
-apiVersion: v2
-name: staging
-description: staging environment
-version: 0.1.0
