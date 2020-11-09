@@ -1,6 +1,7 @@
 simple-webapp:
   image:
     tag: "0.1.0"
+  replicaCount: 2
   resources:
     limits:
       cpu: 200m
